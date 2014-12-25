@@ -14,12 +14,17 @@
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
+          var time = tweet.created_at.getFullYear() + "-" + (tweet.created_at.getMonth()+1) + "-" +
+                      tweet.created_at.getDate() + ", " + tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
+
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + " " + time);
           $tweet.appendTo($body);
           index -= 1;
+          console.log(tweet.created_at);
         }
 
+        console.log(streams.home.length);
       });
 
     </script>
