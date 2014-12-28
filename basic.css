@@ -19,3 +19,7 @@ header {
 	width: 40%;
 	display: inline-block;
 }
+
+#home-tweet, user-tweet{
+		text-align: left;
+}

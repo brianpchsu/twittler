@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="jquery.js"></script>
-    <script src="data_generator.js"></script>
-    <link href="basic.css" rel="stylesheet">
-    <title>Twittler</title>
-    <link rel="shortcut icon" type="image/x-icon" href="img/Twitter_logo.png" />
-  </head>
-  <body>
-    <header>
-      <h2>Twittler</h2>
-      <button id="refresh" align="left">Refresh</button>
-      <textarea id="tweet" maxlength="160" cols="50" rows="2" value='Compose New Tweet Here'></textarea>
-      <button id="submit">Tweete</button>
-    </header>
+<head>
+  <script src="jquery.js"></script>
+  <script src="data_generator.js"></script>
+  <script src= "timeago.js"></script>
+  <link href="basic.css" rel="stylesheet">
+  <title>Twittler</title>
+  <link rel="shortcut icon" type="image/x-icon" href="img/Twitter_logo.png" />
+</head>
+<body>
+  <header>
+    <h1>Twittler</h1>
+    <button id="refresh" align="left">Refresh</button>
+    <textarea id="tweet" maxlength="160" cols="50" rows="2" value='Compose New Tweet Here'></textarea>
+    <button id="submit">Tweete</button>
+  </header>
   
-    <section class="container">
-        <div id ="home-wrapper">
-          <h2>All Tweete</h2>
-          <table id = "home-tweet"></table>
-        </div>
-        <div id ="user-wrapper">
-          <h2>User Tweete</h2>
-          <table id = "user-tweet"></table>
-        </div>
-    </section>
+  <section class="container">
+    <div id ="home-wrapper">
+      <h2>All Tweetes</h2>
+      <table id = "home-tweet"></table>
+    </div>
+    <div id ="user-wrapper">
+      <h2>User Tweetes</h2>
+      <table id = "user-tweet"></table>
+    </div>
+  </section>
 
-    <script>
-    $(document).ready(function(){
-        var $newsfeed = $('#home-tweet');
-        $newsfeed.html('');
-        var index = 0;
-        setInterval(function(){
+  <script>
+  $(document).ready(function(){
+        //Define new user for input
+        var visitor = 'You';
+        streams.users.You = [];
+
+        var loadStream = function(){
+          var $newsfeed = $('#home-tweet');
+          $newsfeed.html('');
+          var index = 0;
           while(index < streams.home.length){
-          var tweet = streams.home[index];
-          var time = tweet.created_at.getFullYear() + "-" + (tweet.created_at.getMonth()+1) + "-" +
-                      tweet.created_at.getDate() + ", " + tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
+            var tweet = streams.home[index];
+            $tweetUser = $('<span class="tweetuser"></span>');
+            $tweetTime = $('<div class="timestamp"></div>');
+            $tweetMsg = $('<div class="tweetMsg"></div>');
 
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + time + ' ' + tweet.message);
-          $tweet.prependTo($newsfeed);
-          index++;
+            $tweetMsg.text(tweet.message);
+            $tweetTime.text($.timeago(tweet.created_at));
+            $tweetUser.text('@' + tweet.user + ': ');
+            $tweetUser.prependTo($tweetMsg);
+            $tweetTime.prependTo($newsfeed);
+            $tweetMsg.prependTo($newsfeed);
+            index++;
+          }
         }
-        console.log(streams.home.length);
-      }, 5000);
+        setInterval(loadStream, 5000);
         
       });
 
-      // function updateTweete(index, $newsfeed){
-        
 
-      // };
-      
-
-    // </script>
-  </body>
+  </script>
+</body>
 </html>
