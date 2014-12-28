@@ -9,23 +9,26 @@
   </head>
   <body>
     <header>
-      <button id="refresh">Refresh</button>
-      <textarea id="tweet" maxlength="160" cols="50" rows="2"></textarea><br>
+      <h2>Twittler</h2>
+      <button id="refresh" align="left">Refresh</button>
+      <textarea id="tweet" maxlength="160" cols="50" rows="2" value='Compose New Tweet Here'></textarea>
       <button id="submit">Tweete</button>
     </header>
   
     <section class="container">
-        <div id ="user-wrapper">
-        </div>
         <div id ="home-wrapper">
+          <h2>All Tweete</h2>
+          <table id = "home-tweet"></table>
         </div>
-        <div id ="target-wrapper">
+        <div id ="user-wrapper">
+          <h2>User Tweete</h2>
+          <table id = "user-tweet"></table>
         </div>
     </section>
 
     <script>
     $(document).ready(function(){
-        var $newsfeed = $('#home-wrapper');
+        var $newsfeed = $('#home-tweet');
         $newsfeed.html('');
         var index = 0;
         setInterval(function(){
