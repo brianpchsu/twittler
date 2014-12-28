@@ -14,12 +14,23 @@ header {
 
 .container{
 	width: 100%;
+	margin-top: 20px;
 }
+
 #user-wrapper, #home-wrapper {
 	width: 40%;
 	display: inline-block;
+	background-color: #FFCCB2;
+	border-radius: 20px;
 }
 
 #home-tweet, user-tweet{
 		text-align: left;
+}
+.timestamp{
+	font-size: 80%;
+}
+
+.tweetuser{
+	font-weight: bold;
 }
