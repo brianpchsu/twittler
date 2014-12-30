@@ -1,15 +1,17 @@
 body {
 	margin: 0;
 	text-align: center;
-	background-color: #EAFDE6;
 }
 
-
-header {
-	width: 100%;
-	height: 125px;
-	background-color: #4099FF;
-	display: inline-block;
+.navbar {
+    position: relative;
+}
+.brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px !important;  /* 50% of your logo width */
+    display: block;
+    font-size: 120%;
 }
 
 .container{
@@ -17,20 +19,33 @@ header {
 	margin-top: 20px;
 }
 
-#user-wrapper, #home-wrapper {
+#home-wrapper {
 	width: 40%;
 	display: inline-block;
 	background-color: #FFCCB2;
 	border-radius: 20px;
 }
 
-#home-tweet, user-tweet{
+#home-tweet{
 		text-align: left;
 }
+
+.tweetMsg{
+	margin: 10px;
+	padding: 10px 0 10px 10px;
+	border: 1px solid #d8d8d8;
+	background-color: #f9f9f9;
+}
+
 .timestamp{
 	font-size: 80%;
 }
 
 .tweetuser{
 	font-weight: bold;
+	color:purple;
+	text-decoration: none;
+}
+.tweetuser:hover {
+	text-decoration: underline;
 }
