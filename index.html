@@ -7,93 +7,99 @@
   <script src= "bootstrap.min.js"></script>
   <link href="style.css" rel="stylesheet">
   <link href="bootstrap.min.css" rel="stylesheet">
-
   <title>Twittler</title>
   <link rel="shortcut icon" type="image/x-icon" href="img/Twitter_logo.png" />
 </head>
+
 <body>
   <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand brand" href="#">Twittler</a>
-    </div>
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand brand" href="#">Twittler</a>
+      </div>
       <form class="navbar-form navbar-left" role="search">
         <button type="submit" class="btn btn-default" id = "homepage">Home</button>
       </form>
-    <!-- Collect the nav links, forms, and other content for toggling -->
+      <!-- Collect the nav links, forms, and other content for toggling -->
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Write new Tweet">
+          <input type="text" class="form-control" placeholder="Write new Tweet" id = "newTweet">
         </div>
-        <button type="submit" class="btn btn-default">Tweet</button>
+        <button type="submit" class="btn btn-default" id = "submitTweet">Tweet</button>
       </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-  
-  <section class="container">
-    <div id ="home-wrapper">
-      <h2 id = "tweet_title">All Tweetes</h2>
-      <table id = "home-tweet"></table>
-    </div>
-  </section>
 
-  <script>
-  $(document).ready(function(){
-        //Define new user for input
-        var visitor = 'You';
-        streams.users.You = [];
+<section class="container">
+  <div id ="home-wrapper">
+    <h2 id = "tweet_title">All Tweetes</h2>
+    <table id = "home-tweet"></table>
+  </div>
+</section>
 
-        var current_stream = streams.home;
-        var loadStream = function(selectedUser){
-          var tweet;  
-          var streamLength = current_stream.length;
+<script>
+$(document).ready(function(){
+  var current_stream = streams.home;
+  var loadStream = function(selectedUser){
+    var tweet;  
+    var streamLength = current_stream.length;
 
-          var $newsfeed = $('#home-tweet');
-          $newsfeed.html('');
+    var $newsfeed = $('#home-tweet');
+    $newsfeed.html('');
 
-          var index = 0;
-          while(index < streamLength){
-            tweet = current_stream[index];
-            $tweetUser = $('<a href="#" class="tweetuser"></a><br>');
-            $tweetTime = $('<div class="timestamp"></div>');
-            $tweetMsg = $('<div class="tweetMsg"></div>');
+    var index = 0;
+    while(index < streamLength){
+      tweet = current_stream[index];
+      $tweetUser = $('<a href="#" class="tweetuser"></a><br>');
+      $tweetTime = $('<div class="timestamp"></div>');
+      $tweetMsg = $('<div class="tweetMsg"></div>');
 
-            $tweetMsg.text(tweet.message);
-            $tweetTime.text($.timeago(tweet.created_at));
-            $tweetUser.text(tweet.user);
+      $tweetMsg.text(tweet.message);
+      $tweetTime.text($.timeago(tweet.created_at));
+      $tweetUser.text(tweet.user);
 
-            $tweetTime.appendTo($tweetMsg);
-            $tweetUser.prependTo($tweetMsg);
-            $tweetMsg.prependTo($newsfeed);
+      $tweetTime.appendTo($tweetMsg);
+      $tweetUser.prependTo($tweetMsg);
+      $tweetMsg.prependTo($newsfeed);
 
-            index++;
-          }
-        }
+      index++;
+    }
+  }
 
-        $('#home-tweet').on('click', '.tweetuser', function(){
-          selectedUser = $(this).text();
-          $('#tweet_title').text(selectedUser + '\'s Tweets');
-          current_stream = streams.users[selectedUser];
-          loadStream();
+  $('#home-tweet').on('click', '.tweetuser', function(){
+    selectedUser = $(this).text();
+    $('#tweet_title').text(selectedUser + '\'s Tweets');
+    current_stream = streams.users[selectedUser];
+    loadStream();
+  });
+
+  $('#homepage').on('click', function(){
+    current_stream = streams.home;
+    $('#tweet_title').text('All Tweets');
+    loadStream();
+  });
+
+  $('#submitTweet').on('click', function(){
+          //Define new user for input
+          visitor = 'You';
+          streams.users[visitor] = [];
+
+          var newmessage = $("#newTweet").val();
+          writeTweet(newmessage);  //user date_generateor.js function
+          $("#newTweet").val(""); //set the input to empty
         });
 
-          $('#homepage').on('click', function(){
-          current_stream = streams.home;
-          $('#tweet_title').text('All Tweets');
-          loadStream();
-        });
+  setInterval(loadStream, 5000);
+});
 
-        setInterval(loadStream, 5000);
-      });
-
-  </script>
+</script>
 </body>
 </html>
