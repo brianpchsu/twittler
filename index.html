@@ -48,6 +48,10 @@
 <script>
 $(document).ready(function(){
   var current_stream = streams.home;
+  var message;
+  visitor = 'You';
+  streams.users[visitor] = [];
+
   var loadStream = function(selectedUser){
     var tweet;  
     var streamLength = current_stream.length;
@@ -89,11 +93,12 @@ $(document).ready(function(){
 
   $('#submitTweet').on('click', function(){
           //Define new user for input
-          visitor = 'You';
-          streams.users[visitor] = [];
-
           var newmessage = $("#newTweet").val();
           writeTweet(newmessage);  //user date_generateor.js function
+          console.log(newmessage);
+          console.log(visitor);
+          console.log(streams.users[visitor]);
+          console.log(streams.users[visitor].length);
           $("#newTweet").val(""); //set the input to empty
         });
 
